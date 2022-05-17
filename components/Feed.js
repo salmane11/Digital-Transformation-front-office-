@@ -1,6 +1,6 @@
 import React from 'react'
-import QuestNumeration from './QuestNumeration'
-import Answers from '../components/Answers'
+import QuestNumeration from './questions/QuestNumeration'
+import Answers from '../components/questions/Answers'
 
 export default function Feed() {
   return (

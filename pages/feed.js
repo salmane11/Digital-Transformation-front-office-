@@ -1,5 +1,5 @@
-import QuestNumeration from '../components/QuestNumeration'
-import Answers from '../components/Answers.js'
+import QuestNumeration from '../components/questions/QuestNumeration'
+import Answers from '../components/questions/Answers.js'
 import Header from '../components/Header'
 import Link from 'next/link'
 import Button from '../components/Button'

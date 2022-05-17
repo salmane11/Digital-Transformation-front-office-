@@ -16,6 +16,8 @@ export default function QuestNumeration() {
       <QuestionNumber number="10" />
       <QuestionNumber number="11" />
       <QuestionNumber number="12" />
+      <QuestionNumber number="13" />
+      <QuestionNumber number="14" />
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import Question from './QuestionNumber'
+import Question from './questions/QuestionNumber'
 
 export default function AuditLabel({ number, label }) {
   return (
