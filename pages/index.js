@@ -3,7 +3,6 @@ import Head from 'next/head'
 import Header from '../components/Header'
 import Feed from '../components/Feed'
 import Login from '../components/Login'
-import CardResult from '../components/results/CardResult'
 
 export default function Home() {
   return (
@@ -12,7 +11,7 @@ export default function Home() {
         <title>Projet PFA</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <CardResult />
+      <Login />
     </div>
   )
 }

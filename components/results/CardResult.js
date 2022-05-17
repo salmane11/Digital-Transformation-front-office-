@@ -17,7 +17,7 @@ export default function CardResult() {
         <Result result="Objectif 3" />
       </div>
       <div className="mt-2 flex justify-end">
-        <Button text="Passer à l'audit digital" />
+        <Button link="/feed" text="Passer à l'audit digital" />
       </div>
     </div>
   )
