@@ -17,8 +17,8 @@ const feed = () => {
         </div>
       </div>
       <div className="ml-60 mt-3 flex space-x-2 pl-96">
-        <Button text="Next" />
-        <Button text="Passer à l'audit digital" />
+        <Button text="Next" link="/objectivesresults" />
+        <Button text="Passer à l'audit digital" link="/initiatives" />
       </div>
     </div>
   )
