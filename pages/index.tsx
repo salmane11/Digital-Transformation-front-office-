@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Header from '../components/Header'
 import Feed from '../components/Feed'
 import Login from '../components/Login'
+import CardResult from '../components/results/CardResult'
 
 const Home: NextPage = () => {
   return (
@@ -13,6 +14,7 @@ const Home: NextPage = () => {
       </Head>
 
 <Login />
+<CardResult />
 
     </div>
   )

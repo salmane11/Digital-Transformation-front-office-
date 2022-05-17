@@ -3,14 +3,13 @@ import Answer from './Answer'
 
 export default function Answers() {
   return (
-    <div className=" cursor-pointer  rounded-xl border-2 p-1 pr-8 ">
-      <h2 className="p-3 text-xl">
+    <div className="h-full w-[640px] cursor-pointer rounded-xl  border-2 p-2 pr-8 ">
+      <h2 className="m-1 rounded-lg border bg-gray-200 p-3 text-xl">
         Which task do you prefer to do in your free time ?
       </h2>
-      <Answer text="Doing Nothing " />
+      <Answer text="This is a long question to test the dynamicity of the component, but it is worked fine Haha ? " />
       <Answer text="Read a book " />
       <Answer text="Watch a movie " />
-      <Answer text="Doing sport " />
     </div>
   )
 }
