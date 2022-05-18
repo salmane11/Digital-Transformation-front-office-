@@ -1,15 +1,25 @@
 import React from 'react'
 import Answer from './Answer'
+import { useState } from 'react'
 
-export default function Answers() {
+export default function Answers({ question }) {
+  // const [selectedResponse, setSelectedResponse] = useState('initial')
+  // const checkHandler = (text) => {
+  //   setSelectedResponse(text)
+  //   console.log(selectedResponse)
+  // }
   return (
     <div className="h-full w-[640px] cursor-pointer rounded-xl  border-2 p-2 pr-8 ">
       <h2 className="m-1 rounded-lg border bg-gray-200 p-3 text-xl">
-        Which task do you prefer to do in your free time ?
+        {question.question}
       </h2>
-      <Answer text="This is a long question to test the dynamicity of the component, but it is worked fine Haha ? " />
-      <Answer text="Read a book " />
-      <Answer text="Watch a movie " />
+      {question.responses.map((response) => (
+        <Answer
+          // isChecked={checkHandler}
+          key={response.name}
+          text={response.name}
+        />
+      ))}
     </div>
   )
 }
