@@ -2,10 +2,10 @@ import React from 'react'
 import { useState } from 'react'
 
 export default function Answer({ text, isChecked }) {
-  // const [checked, setChecked] = useState(false)
-  // const checkBoxHandler = () => {
-  //   setChecked((value) => !value)
-  // }
+  const [checked, setChecked] = useState(false)
+  const checkBoxHandler = () => {
+    setChecked((value) => !value)
+  }
   // if (checked) {
   //   isChecked(text)
   // }
