@@ -2,6 +2,7 @@ import { NextPage } from 'next'
 import Head from 'next/head'
 import Header from '../components/Header'
 import Feed from '../components/Feed'
+import Questions from '../components/Questions'
 import Login from '../components/Login'
 
 export default function Home() {
@@ -10,7 +11,8 @@ export default function Home() {
       <Head>
         <title>Projet PFA</title>
         <link rel="icon" href="/favicon.ico" />
-      </Head>
+      </Head>{' '}
+      <Questions />
       <Login />
     </div>
   )
