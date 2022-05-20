@@ -9,6 +9,7 @@ export default function Answer({ text, isChecked }) {
   // if (checked) {
   //   isChecked(text)
   // }
+  const checkBoxHandler = () => {}
   return (
     <div className="mb-2 ml-6 space-x-2 rounded-lg bg-gray-50 p-2 text-left text-lg">
       <input type="checkbox" disable name="input" onChange={checkBoxHandler} />
