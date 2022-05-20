@@ -4,6 +4,7 @@ import Header from '../components/Header'
 import Feed from '../components/Feed'
 import Questions from '../components/Questions'
 import Login from '../components/Login'
+import NavBar from '../components/navbar/NavBar'
 
 export default function Home() {
   return (
@@ -12,7 +13,8 @@ export default function Home() {
         <title>Projet PFA</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>{' '}
-      <Questions />
+      <NavBar />
+      {/* <Questions /> */}
       <Login />
     </div>
   )
