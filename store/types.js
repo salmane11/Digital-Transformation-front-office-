@@ -1,2 +1,3 @@
 export const SAMPLE_ERROR = 'SAMPLE_ERROR'
 export const GET_QUESTIONS = 'GET_QUESTIONS'
+export const ADD_RESPONSE = 'ADD_RESPONSE'

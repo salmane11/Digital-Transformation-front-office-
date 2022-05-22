@@ -3,107 +3,63 @@ import Answers from '../components/questions/Answers.js'
 import Header from '../components/Header'
 import Link from 'next/link'
 import Button from '../components/Button'
-import {useState} from "react"
+import { useState,useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getQuestions } from '../store/actions/questionAction'
+import { addResponse } from '../store/actions/responseAction'
 
 const feed = () => {
-  const [counter,setCounter]=useState(0);
-  const questions = [
-    {
-      question: 'question 1',
-      responses: [
-        {
-          name: 'response 1',
-          score: 21,
-        },
-        {
-          name: 'response 2',
-          score: 18,
-        },
-        {
-          name: 'response 3',
-          score: 25,
-        },
-      ],
-      objective: 'objectif 1',
-      percentage: 0.75,
-    },
-    {
-      question: 'question 2',
-      responses: [
-        {
-          name: 'response 1',
-          score: 21,
-        },
-        {
-          name: 'response 2',
-          score: 18,
-        },
-        {
-          name: 'response 3',
-          score: 25,
-        },
-      ],
-      objective: 'objectif 1',
-      percentage: 0.75,
-    },
-    {
-      question: 'question 3',
-      responses: [
-        {
-          name: 'response 1',
-          score: 21,
-        },
-        {
-          name: 'response 2',
-          score: 18,
-        },
-        {
-          name: 'response 3',
-          score: 25,
-        },
-      ],
-      objective: 'objectif 1',
-      percentage: 0.75,
-    },
-    {
-      question: 'question 4',
-      responses: [
-        {
-          name: 'response 1',
-          score: 21,
-        },
-        {
-          name: 'response 2',
-          score: 18,
-        },
-        {
-          name: 'response 3',
-          score: 25,
-        },
-      ],
-      objective: 'objectif 1',
-      percentage: 0.75,
-    },
-  ]
+  const [selectedResponse, setSelectedResponse] = useState('')
+  const [counter, setCounter] = useState(0)
 
-  const counterHandler=()=>{
-    if(counter===questions.length-1){
-      console.log("length max");
-      return;
+  const dispatch = useDispatch()
+
+  const counterHandler = () => {
+    if (counter === questions.length - 1) {
+      console.log('length max')
+      return
     }
-    setCounter(counter+1);
-    console.log(counter)
+    dispatch(
+      addResponse({
+        question: questions[counter].question,
+        response: {
+          name: selectedResponse,
+          score: questions[counter].responses.filter(
+            (response) => response.name === selectedResponse
+          )[0].score,
+        },
+        objective: questions[counter].objective,
+        percentage: questions[counter].percentage,
+      })
+    )
+    setCounter(counter + 1)
   }
+
+
+  const answerHandler = (answer) => {
+    setSelectedResponse(answer)
+  }
+
+  const questionsData = useSelector((state) => state.questions)
+  const { questions } = questionsData
+
+  useEffect(() => {
+    dispatch(getQuestions())
+  }, [dispatch])
+  
 
   return (
     <div className="g-6 flex h-full flex-col items-center justify-center">
       <Header />
       <div className="mt-6 flex  justify-between ">
         <div className="flex-[0.3] ">
-          <QuestNumeration counter={counter} size={questions.length}/>
+          <QuestNumeration counter={counter} size={questions.length} />
         </div>
         <div className="flex-[0.64]">
-          <Answers question={questions[counter]}/>
+          <Answers
+            selectedAnswer={answerHandler}
+            question={questions[counter]}
+          />
         </div>
       </div>
       <div className="ml-60 mt-3 flex space-x-2 pl-96">
