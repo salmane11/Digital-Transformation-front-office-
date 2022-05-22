@@ -1,23 +1,24 @@
 import React from 'react'
 import Answer from './Answer'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-export default function Answers({ question }) {
+export default function Answers({ question, selectedAnswer }) {
   const [selectedResponses, setSelectedResponses] = useState([])
   const checkHandler = (text) => {
     setSelectedResponses((state) => [...state, text])
-    console.log(selectedResponses)
   }
   const uncheckHandler = (text) => {
     setSelectedResponses((state) => state.filter((element) => element !== text))
-    console.log(selectedResponses)
   }
+  useEffect(()=>{
+    selectedAnswer(selectedResponses[0])
+  },[selectedResponses])
   return (
     <div className="h-full w-[640px] cursor-pointer rounded-xl  border-2 p-2 pr-8 ">
       <h2 className="m-1 rounded-lg border bg-gray-200 p-3 text-xl">
-        {question.question}
+        {question && question.question}
       </h2>
-      {question.responses.map((response) => (
+      {question && question.responses.map((response) => (
         <Answer
           isChecked={checkHandler}
           isUnchecked={uncheckHandler}
