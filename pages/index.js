@@ -13,7 +13,7 @@ export default function Home() {
         <title>Projet PFA</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>{' '}
-      <NavBar />
+      {/* <NavBar /> */}
       {/* <Questions /> */}
       <Login />
     </div>
