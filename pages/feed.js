@@ -3,7 +3,7 @@ import Answers from '../components/questions/Answers.js'
 import Header from '../components/Header'
 import Link from 'next/link'
 import Button from '../components/Button'
-import { useState,useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getQuestions } from '../store/actions/questionAction'
 import { addResponse } from '../store/actions/responseAction'
@@ -26,7 +26,7 @@ const feed = () => {
           name: selectedResponse,
           score: questions[counter].responses.filter(
             (response) => response.name === selectedResponse
-          )[0].score,
+          )[0]?.score,
         },
         objective: questions[counter].objective,
         percentage: questions[counter].percentage,
@@ -34,7 +34,6 @@ const feed = () => {
     )
     setCounter(counter + 1)
   }
-
 
   const answerHandler = (answer) => {
     setSelectedResponse(answer)
@@ -46,7 +45,6 @@ const feed = () => {
   useEffect(() => {
     dispatch(getQuestions())
   }, [dispatch])
-  
 
   return (
     <div className="g-6 flex h-full flex-col items-center justify-center">

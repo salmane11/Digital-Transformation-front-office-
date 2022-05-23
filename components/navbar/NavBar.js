@@ -18,7 +18,7 @@ function MobileNav({ open, setOpen }) {
       <div className="flex h-20 items-center justify-center bg-white drop-shadow-md filter">
         {' '}
         {/*logo container*/}
-        <a className="text-xl font-semibold" href="/">
+        <a className=" text-xl font-semibold" href="/">
           LOGO
         </a>
       </div>
