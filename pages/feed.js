@@ -3,7 +3,7 @@ import Answers from '../components/questions/Answers.js'
 import Header from '../components/Header'
 import Link from 'next/link'
 import Button from '../components/Button'
-import { useState,useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getQuestions } from '../store/actions/questionAction'
 import { addResponse } from '../store/actions/responseAction'
@@ -15,29 +15,29 @@ const feed = () => {
   const dispatch = useDispatch()
 
   const counterHandler = () => {
-    if (counter === questions.length - 1) {
-      console.log('length max')
+    if (counter === questions.length) {
       return
     }
-    dispatch(
-      addResponse({
-        question: questions[counter].question,
-        response: {
-          name: selectedResponse,
-          score: questions[counter].responses.filter(
-            (response) => response.name === selectedResponse
-          )[0].score,
-        },
-        objective: questions[counter].objective,
-        percentage: questions[counter].percentage,
-      })
-    )
-    setCounter(counter + 1)
+    if (selectedResponse) {
+      dispatch(
+        addResponse({
+          question: questions[counter].question,
+          response: {
+            name: selectedResponse,
+            score: questions[counter].responses.filter(
+              (response) => response.name === selectedResponse
+            )[0].score,
+          },
+          objective: questions[counter].objective,
+          percentage: questions[counter].percentage,
+        })
+      )
+      setCounter(counter + 1)
+    }
   }
 
-
   const answerHandler = (answer) => {
-    setSelectedResponse(answer)
+    setSelectedResponse(answer[0])
   }
 
   const questionsData = useSelector((state) => state.questions)
@@ -46,7 +46,6 @@ const feed = () => {
   useEffect(() => {
     dispatch(getQuestions())
   }, [dispatch])
-  
 
   return (
     <div className="g-6 flex h-full flex-col items-center justify-center">
@@ -59,6 +58,7 @@ const feed = () => {
           <Answers
             selectedAnswer={answerHandler}
             question={questions[counter]}
+            counter={counter}
           />
         </div>
       </div>
