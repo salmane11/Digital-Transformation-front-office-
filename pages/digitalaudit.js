@@ -2,7 +2,9 @@ import Axes from '../components/digitalQuestions/Axes.js'
 import QuestNumeration from '../components/questions/QuestNumeration.js'
 import Answers from '../components/questions/Answers.js'
 import Button from '../components/Button'
+import Header from '../components/Header'
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 
 function digitalaudit() {
   const digitalQuestions = [
@@ -409,6 +411,8 @@ function digitalaudit() {
     console.log(answers)
   }
 
+  const router = useRouter()
+
   /**
    * on every click on the next button we increment the levels counter.
    * if the levels' counter is 5 then we increment the axis' counter
@@ -456,7 +460,7 @@ function digitalaudit() {
     if (axesCounter === axes.length) {
       console.log(axisLevel)
       //the digital audit is finished redirect to result
-      return
+      router.push("/initiatives")
     }
     setAnswersCounter((state) => [...state, selectedAnswers.length])
     setLevelsCounter((state) => state + 1)
@@ -468,21 +472,25 @@ function digitalaudit() {
   }
 
   return (
-    <div className="align-center flex w-full justify-between ">
-      <div className="m-2 w-1/3 p-2">
-        <Axes axes={axes} axisCounter={axesCounter} />
-        <QuestNumeration className="w-full" counter={levelsCounter} size={5} />
-      </div>
-      <div className="w-2/3">
+    <div className="g-6 flex h-full flex-col items-center justify-center">
+      <Header audit="Audit Digital" />
+      <div className="align-center flex w-full justify-center ">
+        <div className="m-2 p-2 ">
+          <Axes axes={axes} axisCounter={axesCounter} />
+          <QuestNumeration
+            className="w-full"
+            counter={levelsCounter}
+            size={5}
+          />
+        </div>
         <Answers
           selectedAnswer={answersHandler}
           question={digitalQuestions[questionsCounter]}
           counter={questionsCounter}
         />
-        <div className="ml-60 mt-3 flex space-x-2 pl-96">
-          <Button text="Next" onClick={counterHandler} />
-          <Button text="See Results" link="/initiatives" />
-        </div>
+      </div>
+      <div className="ml-30 mt-3 flex space-x-2 pl-96">
+        <Button text="Next" onClick={counterHandler} />
       </div>
     </div>
   )

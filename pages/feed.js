@@ -2,6 +2,7 @@ import QuestNumeration from '../components/questions/QuestNumeration'
 import Answers from '../components/questions/Answers.js'
 import Header from '../components/Header'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import Button from '../components/Button'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,10 +14,10 @@ const feed = () => {
   const [counter, setCounter] = useState(0)
 
   const dispatch = useDispatch()
-
+  const router = useRouter()
   const counterHandler = () => {
     if (counter === questions.length) {
-      return
+      router.push("/objectivesresults")
     }
     if (selectedResponse) {
       dispatch(
@@ -49,7 +50,7 @@ const feed = () => {
 
   return (
     <div className="g-6 flex h-full flex-col items-center justify-center">
-      <Header />
+      <Header audit="Audit Stratégique"/>
       <div className="mt-6 flex  justify-between ">
         <div className="flex-[0.3] ">
           <QuestNumeration counter={counter} size={questions.length} />
@@ -62,9 +63,8 @@ const feed = () => {
           />
         </div>
       </div>
-      <div className="ml-60 mt-3 flex space-x-2 pl-96">
+      <div className="ml-30 mt-3 flex space-x-2 pl-96">
         <Button text="Next" onClick={counterHandler} />
-        <Button text="Passer à l'audit digital" link="/initiatives" />
       </div>
     </div>
   )
