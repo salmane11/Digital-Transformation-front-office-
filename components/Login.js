@@ -1,8 +1,23 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Feed from './Feed'
+import useHttp from '../store/requests.js'
+import { digitalHost } from '../store/requests.js'
 
 export default function Login() {
+  const { isLoading, error, sendRequest: getAllDigitalQuestions } = useHttp()
+  useEffect(() => {
+    getAllDigitalQuestions(
+      {
+        url: digitalHost + `/get-choices-by-filters/${"6297715d74b695aa8b485024"}/${"62977622bd9fed698c8734d3"}`,
+        method: 'get',
+        headers: { 'Content-Type': 'application/json' },
+      },
+      (data) => {
+        console.log(data)
+      }
+    )
+  }, [])
   return (
     <div>
       <section className="h-screen">
@@ -53,7 +68,7 @@ export default function Login() {
                       Remember me
                     </label>
                   </div>
-                  <a href="#!" class="text-gray-800">
+                  <a href="#!" className="text-gray-800">
                     Forgot password?
                   </a>
                 </div>

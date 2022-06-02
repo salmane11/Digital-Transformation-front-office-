@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 
-export const host = 'http://localhost:port/api'
+export const digitalHost = 'http://localhost:5000/api/digital-audit'
 
 const useHttp = () => {
   const [isLoading, setIsLoading] = useState(false)
