@@ -3,406 +3,106 @@ import QuestNumeration from '../components/questions/QuestNumeration.js'
 import Answers from '../components/questions/Answers.js'
 import Button from '../components/Button'
 import Header from '../components/Header'
-import { useState } from 'react'
+import useHttp, { digitalHost } from '../store/requests.js'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 function digitalaudit() {
-  const digitalQuestions = [
-    {
-      question: 'axis 1',
-      level: 1,
-      responses: [
-        {
-          name: 'response 1 level1',
-        },
-        {
-          name: 'response 2',
-        },
-        {
-          name: 'response 3',
-        },
-      ],
-    },
-    {
-      question: 'axis 1',
-      level: 2,
-      responses: [
-        {
-          name: 'response 1level2',
-        },
-        {
-          name: 'response 2',
-        },
-        {
-          name: 'response 3',
-        },
-      ],
-    },
-    {
-      question: 'axis 1',
-      level: 3,
-      responses: [
-        {
-          name: 'response 1 level3',
-        },
-        {
-          name: 'response 2',
-        },
-        {
-          name: 'response 3',
-        },
-      ],
-    },
-    {
-      question: 'axis 1',
-      level: 4,
-      responses: [
-        {
-          name: 'response 1 level4',
-        },
-        {
-          name: 'response 2',
-        },
-        {
-          name: 'response 3',
-        },
-      ],
-    },
-    {
-      question: 'axis 1',
-      level: 5,
-      responses: [
-        {
-          name: 'response 1 level5',
-        },
-        {
-          name: 'response 2',
-        },
-        {
-          name: 'response 3',
-        },
-      ],
-    },
-    {
-      question: 'axis 2',
-      level: 1,
-      responses: [
-        {
-          name: 'response 1l',
-        },
-        {
-          name: 'response 2',
-        },
-        {
-          name: 'response 3',
-        },
-      ],
-    },
-    {
-      question: 'axis 2',
-      level: 2,
-      responses: [
-        {
-          name: 'response 1l',
-        },
-        {
-          name: 'response 2',
-        },
-        {
-          name: 'response 3',
-        },
-      ],
-    },
-    {
-      question: 'axis 2',
-      level: 3,
-      responses: [
-        {
-          name: 'response 1l',
-        },
-        {
-          name: 'response 2',
-        },
-        {
-          name: 'response 3',
-        },
-      ],
-    },
-    {
-      question: 'axis 2',
-      level: 4,
-      responses: [
-        {
-          name: 'response 1l',
-        },
-        {
-          name: 'response 2',
-        },
-        {
-          name: 'response 3',
-        },
-      ],
-    },
-    {
-      question: 'axis 2',
-      level: 5,
-      responses: [
-        {
-          name: 'response 1l',
-        },
-        {
-          name: 'response 2',
-        },
-        {
-          name: 'response 3',
-        },
-      ],
-    },
-    {
-      question: 'axis 3',
-      level: 1,
-      responses: [
-        {
-          name: 'response 1',
-        },
-        {
-          name: 'response 2',
-        },
-        {
-          name: 'response 3',
-        },
-      ],
-    },
-    {
-      question: 'axis 3',
-      level: 2,
-      responses: [
-        {
-          name: 'response 1',
-        },
-        {
-          name: 'response 2',
-        },
-        {
-          name: 'response 3',
-        },
-      ],
-    },
-    {
-      question: 'axis 3',
-      level: 3,
-      responses: [
-        {
-          name: 'response 1',
-        },
-        {
-          name: 'response 2',
-        },
-        {
-          name: 'response 3',
-        },
-      ],
-    },
-    {
-      question: 'axis 3',
-      level: 4,
-      responses: [
-        {
-          name: 'response 1',
-        },
-        {
-          name: 'response 2',
-        },
-        {
-          name: 'response 3',
-        },
-      ],
-    },
-    {
-      question: 'axis 3',
-      level: 5,
-      responses: [
-        {
-          name: 'response 1',
-        },
-        {
-          name: 'response 2',
-        },
-        {
-          name: 'response 3',
-        },
-      ],
-    },
-    {
-      question: 'axis 4',
-      level: 1,
-      responses: [
-        {
-          name: 'response 1 level1',
-        },
-        {
-          name: 'response 2',
-        },
-        {
-          name: 'response 3',
-        },
-      ],
-    },
-    {
-      question: 'axis 4',
-      level: 2,
-      responses: [
-        {
-          name: 'response 1level2',
-        },
-        {
-          name: 'response 2',
-        },
-        {
-          name: 'response 3',
-        },
-      ],
-    },
-    {
-      question: 'axis 4',
-      level: 3,
-      responses: [
-        {
-          name: 'response 1 level3',
-        },
-        {
-          name: 'response 2',
-        },
-        {
-          name: 'response 3',
-        },
-      ],
-    },
-    {
-      question: 'axis 4',
-      level: 4,
-      responses: [
-        {
-          name: 'response 1 level4',
-        },
-        {
-          name: 'response 2',
-        },
-        {
-          name: 'response 3',
-        },
-      ],
-    },
-    {
-      question: 'axis 4',
-      level: 5,
-      responses: [
-        {
-          name: 'response 1 level5',
-        },
-        {
-          name: 'response 2',
-        },
-        {
-          name: 'response 3',
-        },
-      ],
-    },
-    {
-      question: 'axis 5',
-      level: 1,
-      responses: [
-        {
-          name: 'response 1',
-        },
-        {
-          name: 'response 2',
-        },
-        {
-          name: 'response 3',
-        },
-      ],
-    },
-    {
-      question: 'axis 5',
-      level: 2,
-      responses: [
-        {
-          name: 'response 1',
-        },
-        {
-          name: 'response 2',
-        },
-        {
-          name: 'response 3',
-        },
-      ],
-    },
-    {
-      question: 'axis 5',
-      level: 3,
-      responses: [
-        {
-          name: 'response 1',
-        },
-        {
-          name: 'response 2',
-        },
-        {
-          name: 'response 3',
-        },
-      ],
-    },
-    {
-      question: 'axis 5',
-      level: 4,
-      responses: [
-        {
-          name: 'response 1',
-        },
-        {
-          name: 'response 2',
-        },
-        {
-          name: 'response 3',
-        },
-      ],
-    },
-    {
-      question: 'axis 5',
-      level: 5,
-      responses: [
-        {
-          name: 'response 1',
-        },
-        {
-          name: 'response 2',
-        },
-        {
-          name: 'response 3',
-        },
-      ],
-    },
-  ]
-  const axes = [
-    { axisId: 1, axisName: 'G & L' },
-    { axisId: 2, axisName: 'P & C' },
-    { axisId: 3, axisName: 'C & C' },
-    { axisId: 4, axisName: 'Innovation' },
-    { axisId: 5, axisName: 'Technology' },
-  ]
+  const [digitalChoices, setDigitalChoices] = useState([])
+  const [digitalLevels, setDigitalLevels] = useState([])
+  const [digitalAxes, setDigitalAxes] = useState([])
+
+  const { isLoading, error, sendRequest } = useHttp()
+  useEffect(() => {
+    sendRequest(
+      {
+        url: digitalHost + '/get-all-axes',
+        method: 'get',
+        headers: { 'Content-Type': 'application/json' },
+      },
+      (data) => {
+        setDigitalAxes(data)
+      }
+    )
+    sendRequest(
+      {
+        url: digitalHost + '/get-all-levels',
+        method: 'get',
+        headers: { 'Content-Type': 'application/json' },
+      },
+      (data) => {
+        setDigitalLevels(data)
+      }
+    )
+  }, [])
+
+  useEffect(() => {
+    if (digitalAxes && digitalLevels) {
+      for (let key = 0; key < digitalAxes.length - 2; key++) {
+        // console.log("axe : "+digitalAxes[key]._id)
+        for (let keey in digitalLevels) {
+          // console.log(digitalLevels[keey]._id)
+          sendRequest(
+            {
+              url:
+                digitalHost +
+                `/get-choices-by-filters/${digitalAxes[key]._id}/${digitalLevels[keey]._id}`,
+              method: 'get',
+              headers: { 'Content-Type': 'application/json' },
+            },
+            (data) => {
+              setDigitalChoices((state) => [
+                ...state,
+                {
+                  question: digitalAxes[key].name,
+                  level: digitalLevels[keey].degree,
+                  responses: data,
+                },
+              ])
+            }
+          )
+        }
+      }
+    }
+  }, [digitalAxes, digitalLevels])
+  // console.log(digitalChoices)
+
+  // const axes = [
+  //   { axisId: 1, axisName: 'G & L' },
+  //   { axisId: 2, axisName: 'P & C' },
+  //   { axisId: 3, axisName: 'C & C' },
+  //   { axisId: 4, axisName: 'Innovation' },
+  //   { axisId: 5, axisName: 'Technology' },
+  // ]
 
   const [levelsCounter, setLevelsCounter] = useState(0)
+
   const [axesCounter, setAxesCounter] = useState(0)
+
   const [questionsCounter, setQuestionsCounter] = useState(0)
 
   //a list that stores the answers on each level
+  //["digital is fully integrated into organisational plans and the business review cycle": one choice selected in some level]
   const [selectedAnswers, setSelectedAnswers] = useState([])
 
   //a list that stores the count of answer on each level
+  //[2:two choices selected in level 1, 3, 4 , 0,5:five choices selected in level 5]
   const [answersCounter, setAnswersCounter] = useState([])
 
   //a list that stores every axis' level
+  /** [
+    {
+        "axe_id": "6297715d74b695aa8b485024",
+        "levels": [
+            "629775e3bd9fed698c8734cb",
+            "629775e3bd9fed698c8734cb",
+            "629775e3bd9fed698c8734cb",
+            "629775f6bd9fed698c8734cd",
+            "629775f6bd9fed698c8734cd",
+            "62977605bd9fed698c8734cf",
+            "62977605bd9fed698c8734cf"
+        ]
+    }, ...], */
   const [axisLevel, setAxisLevel] = useState([])
 
   // a function that come up with the selected answers from the child Component Answers
@@ -420,35 +120,18 @@ function digitalaudit() {
    **/
   const counterHandler = () => {
     let levels = []
-    for (let i = 0; i < 5; i++) {
-      let level = ''
-      switch (i) {
-        case 0:
-          level = 'level1'
-          break
-        case 1:
-          level = 'level2'
-          break
-        case 2:
-          level = 'level3'
-          break
-        case 3:
-          level = 'level4'
-          break
-        case 4:
-          level = 'level5'
-          break
-      }
-      for (let j = 0; j < answersCounter[i]; j++) {
-        levels.push(level)
-      }
-    }
 
-    if (levelsCounter === 5) {
+    if (levelsCounter === digitalLevels.length) {
+      //after each click on the next button we insert in the list levels the ids of levels of checked choices
+      for (let i = 0; i < digitalLevels.length; i++) {
+        for (let j = 0; j < answersCounter[i]; j++) {
+          levels.push(digitalLevels[i]._id)
+        }
+      }
       setAxisLevel((state) => [
         ...state,
         {
-          axisId: axes[axesCounter].axisId,
+          axe_id: digitalAxes[axesCounter]._id,
           levels: levels,
         },
       ])
@@ -457,18 +140,31 @@ function digitalaudit() {
       setAnswersCounter([])
       return
     }
-    if (axesCounter === axes.length) {
+    if (axesCounter === digitalAxes.length - 2) {
       console.log(axisLevel)
+
+      sendRequest(
+        {
+          url: digitalHost + '/send-choices',
+          method: 'post',
+          headers: { 'Content-Type': 'application/json' },
+          body: axisLevel,
+        },
+        (data) => {
+          console.log(data)
+        }
+      )
+
       //the digital audit is finished redirect to result
-      router.push("/initiatives")
+      router.push('/initiatives')
     }
     setAnswersCounter((state) => [...state, selectedAnswers.length])
     setLevelsCounter((state) => state + 1)
     setQuestionsCounter(questionsCounter + 1)
-    console.log('these are the answers checked on every level ', [
-      ...answersCounter,
-      selectedAnswers.length,
-    ])
+    // console.log('these are the answers checked on every level ', [
+    //   ...answersCounter,
+    //   selectedAnswers.length,
+    // ])
   }
 
   return (
@@ -476,7 +172,7 @@ function digitalaudit() {
       <Header audit="Audit Digital" />
       <div className="align-center flex w-full justify-center ">
         <div className="m-2 p-2 ">
-          <Axes axes={axes} axisCounter={axesCounter} />
+          <Axes axes={digitalAxes} axisCounter={axesCounter} />
           <QuestNumeration
             className="w-full"
             counter={levelsCounter}
@@ -485,7 +181,7 @@ function digitalaudit() {
         </div>
         <Answers
           selectedAnswer={answersHandler}
-          question={digitalQuestions[questionsCounter]}
+          question={digitalChoices[questionsCounter]}
           counter={questionsCounter}
         />
       </div>
