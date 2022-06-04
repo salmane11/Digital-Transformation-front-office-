@@ -6,6 +6,10 @@ import Header from '../components/Header'
 import useHttp, { digitalHost } from '../store/requests.js'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
+import { addDigitalResponse } from '../store/actions/digitalResponsesAction'
+import { addMaturityLevels } from '../store/actions/maturityLevelsAction'
+
 
 function digitalaudit() {
   const [digitalChoices, setDigitalChoices] = useState([])
@@ -67,14 +71,6 @@ function digitalaudit() {
   }, [digitalAxes, digitalLevels])
   // console.log(digitalChoices)
 
-  // const axes = [
-  //   { axisId: 1, axisName: 'G & L' },
-  //   { axisId: 2, axisName: 'P & C' },
-  //   { axisId: 3, axisName: 'C & C' },
-  //   { axisId: 4, axisName: 'Innovation' },
-  //   { axisId: 5, axisName: 'Technology' },
-  // ]
-
   const [levelsCounter, setLevelsCounter] = useState(0)
 
   const [axesCounter, setAxesCounter] = useState(0)
@@ -90,19 +86,6 @@ function digitalaudit() {
   const [answersCounter, setAnswersCounter] = useState([])
 
   //a list that stores every axis' level
-  /** [
-    {
-        "axe_id": "6297715d74b695aa8b485024",
-        "levels": [
-            "629775e3bd9fed698c8734cb",
-            "629775e3bd9fed698c8734cb",
-            "629775e3bd9fed698c8734cb",
-            "629775f6bd9fed698c8734cd",
-            "629775f6bd9fed698c8734cd",
-            "62977605bd9fed698c8734cf",
-            "62977605bd9fed698c8734cf"
-        ]
-    }, ...], */
   const [axisLevel, setAxisLevel] = useState([])
 
   // a function that come up with the selected answers from the child Component Answers
@@ -117,8 +100,19 @@ function digitalaudit() {
    * on every click on the next button we increment the levels counter.
    * if the levels' counter is 5 then we increment the axis' counter
    * on every level we count the number of selected answers and push the count to answersCounter
+   * and dispatch the responses to redux for the history registration.
    **/
+  const dispatch = useDispatch()
   const counterHandler = () => {
+    if (selectedAnswers && digitalChoices[questionsCounter]) {
+      dispatch(
+        addDigitalResponse({
+          axe: digitalChoices[questionsCounter].question,
+          level: digitalChoices[questionsCounter].level,
+          choices: selectedAnswers,
+        })
+      )
+    }
     let levels = []
 
     if (levelsCounter === digitalLevels.length) {
@@ -148,10 +142,14 @@ function digitalaudit() {
           url: digitalHost + '/send-choices',
           method: 'post',
           headers: { 'Content-Type': 'application/json' },
-          body: axisLevel,
+          body: { choices: axisLevel },
         },
         (data) => {
           console.log(data)
+          dispatch(
+            addMaturityLevels(data)
+          )
+          console.log("dispatched")
         }
       )
 

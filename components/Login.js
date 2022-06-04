@@ -2,14 +2,16 @@ import Link from 'next/link'
 import React, { useEffect } from 'react'
 import Feed from './Feed'
 import useHttp from '../store/requests.js'
-import { digitalHost } from '../store/requests.js'
+import { strategicHost } from '../store/requests.js'
 
 export default function Login() {
-  const { isLoading, error, sendRequest: getAllDigitalQuestions } = useHttp()
+
+  const { isLoading, error, sendRequest } = useHttp()
+
   useEffect(() => {
-    getAllDigitalQuestions(
+    sendRequest(
       {
-        url: digitalHost + `/get-choices-by-filters/${"6297715d74b695aa8b485024"}/${"62977622bd9fed698c8734d3"}`,
+        url: strategicHost + '/',
         method: 'get',
         headers: { 'Content-Type': 'application/json' },
       },
