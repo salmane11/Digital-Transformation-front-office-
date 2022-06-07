@@ -16,7 +16,7 @@ const feed = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const counterHandler = () => {
-    if (counter === questions.length) {
+    if (counter === questions.length-1) {
       router.push("/objectivesresults")
     }
     if (selectedResponse) {

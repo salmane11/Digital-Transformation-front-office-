@@ -115,7 +115,7 @@ function digitalaudit() {
     }
     let levels = []
 
-    if (levelsCounter === digitalLevels.length) {
+    if (levelsCounter === digitalLevels.length-1) {
       //after each click on the next button we insert in the list levels the ids of levels of checked choices
       for (let i = 0; i < digitalLevels.length; i++) {
         for (let j = 0; j < answersCounter[i]; j++) {
@@ -130,6 +130,7 @@ function digitalaudit() {
         },
       ])
       setAxesCounter(axesCounter + 1)
+      setQuestionsCounter(questionsCounter+1)
       setLevelsCounter(0)
       setAnswersCounter([])
       return
@@ -174,7 +175,7 @@ function digitalaudit() {
           <QuestNumeration
             className="w-full"
             counter={levelsCounter}
-            size={5}
+            size={digitalLevels.length}
           />
         </div>
         <Answers
