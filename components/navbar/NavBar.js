@@ -1,8 +1,13 @@
 import { useState } from 'react'
 
-function NavLink({ to, children }) {
+function NavLink({ to, children, isBackgr }) {
   return (
-    <a href={to} className={`mx-4`}>
+    <a
+      href={to}
+      className={`mx-4 p-[5px] font-medium ${
+        isBackgr ? 'rounded-md bg-blue-500 text-white' : ''
+      }`}
+    >
       {children}
     </a>
   )
@@ -24,7 +29,7 @@ function MobileNav({ open, setOpen }) {
       </div>
       <div className="ml-4 flex flex-col">
         <a
-          className="my-4 text-xl font-medium"
+          className="my-4 text-xl font-normal text-blue-500"
           href="/feed"
           onClick={() =>
             setTimeout(() => {
@@ -35,7 +40,7 @@ function MobileNav({ open, setOpen }) {
           Feed
         </a>
         <a
-          className="my-4 text-xl font-normal"
+          className="my-4 text-xl font-normal text-blue-500"
           href="/"
           onClick={() =>
             setTimeout(() => {
@@ -45,6 +50,17 @@ function MobileNav({ open, setOpen }) {
         >
           SignOut
         </a>
+        <a
+          className="my-4 text-xl font-normal text-blue-500"
+          href="/register"
+          onClick={() =>
+            setTimeout(() => {
+              setOpen(!open)
+            }, 100)
+          }
+        >
+          Register
+        </a>
       </div>
     </div>
   )
@@ -53,7 +69,7 @@ function MobileNav({ open, setOpen }) {
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   return (
-    <nav className="flex h-20 items-center bg-white px-4 py-4 drop-shadow-md filter">
+    <nav className="sticky top-0 z-50 flex h-20 items-center bg-white px-4 py-4 drop-shadow-md filter">
       <MobileNav open={open} setOpen={setOpen} />
       <div className="flex w-3/12 items-center">
         <a className="text-2xl font-semibold" href="/">
@@ -86,8 +102,11 @@ export default function Navbar() {
         </div>
 
         <div className="hidden md:flex">
-          <NavLink to="/">SignOut</NavLink>
           <NavLink to="/feed">Feed</NavLink>
+          <NavLink to="/">Historique</NavLink>
+          <NavLink isBackgr="true" to="/">
+            SignOut
+          </NavLink>
         </div>
       </div>
     </nav>
