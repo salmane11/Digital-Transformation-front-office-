@@ -103,7 +103,7 @@ export default function Navbar() {
 
         <div className="hidden md:flex">
           <NavLink to="/feed">Feed</NavLink>
-          <NavLink to="/">Historique</NavLink>
+          <NavLink to="/historiques">Historique</NavLink>
           <NavLink isBackgr="true" to="/">
             SignOut
           </NavLink>
