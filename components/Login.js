@@ -11,9 +11,6 @@ const initialState = {
   password: '',
 }
 
-// const token = localStorage.getItem('token')
-// const user = localStorage.getItem('user')
-
 export default function Login() {
   const [user, setUser] = useState(initialState)
   const router = useRouter()
@@ -40,10 +37,9 @@ export default function Login() {
         'http://localhost:5000/login',
         currentUser
       )
+      const { token } = data
+
       router.push('/feed')
-      console.log('user : ' + data)
-      const { user, token } = data
-      localStorage.setItem('user', JSON.stringify(user))
       localStorage.setItem('token', token)
     } catch (error) {
       console.log(error)
