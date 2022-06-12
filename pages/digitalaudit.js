@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 import { addDigitalResponse } from '../store/actions/digitalResponsesAction'
 import { addMaturityLevels } from '../store/actions/maturityLevelsAction'
+import {addDigitalAxes} from '../store/actions/digitalAxesAction'
 
 
 function digitalaudit() {
@@ -17,6 +18,7 @@ function digitalaudit() {
   const [digitalAxes, setDigitalAxes] = useState([])
 
   const { isLoading, error, sendRequest } = useHttp()
+  const dispatch = useDispatch()
   useEffect(() => {
     sendRequest(
       {
@@ -26,6 +28,7 @@ function digitalaudit() {
       },
       (data) => {
         setDigitalAxes(data)
+        dispatch(addDigitalAxes(data))
       }
     )
     sendRequest(
@@ -102,7 +105,6 @@ function digitalaudit() {
    * on every level we count the number of selected answers and push the count to answersCounter
    * and dispatch the responses to redux for the history registration.
    **/
-  const dispatch = useDispatch()
   const counterHandler = () => {
     if (selectedAnswers && digitalChoices[questionsCounter]) {
       dispatch(

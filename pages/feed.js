@@ -7,6 +7,7 @@ import Button from '../components/Button'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getQuestions } from '../store/actions/questionAction'
+import { addStrategicObjectives } from '../store/actions/strategicObjectivesAction'
 import { addResponse } from '../store/actions/responseAction'
 
 const feed = () => {
@@ -17,6 +18,8 @@ const feed = () => {
   const router = useRouter()
   const counterHandler = () => {
     if (counter === questions.length-1) {
+      //fetch strategicObjectives based on responses
+      //dispatch(addStrategicObjectives(result fetched from backend)
       router.push("/objectivesresults")
     }
     if (selectedResponse) {
@@ -46,6 +49,7 @@ const feed = () => {
 
   useEffect(() => {
     dispatch(getQuestions())
+    dispatch(addStrategicObjectives(["objective1","objective2","objective3","objective4"]))
   }, [dispatch])
 
   return (
