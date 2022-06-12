@@ -50,21 +50,6 @@ export default function Login() {
     }
   }
 
-  const { isLoading, error, sendRequest: getAllDigitalQuestions } = useHttp()
-  useEffect(() => {
-    getAllDigitalQuestions(
-      {
-        url:
-          digitalHost +
-          `/get-choices-by-filters/${'6297715d74b695aa8b485024'}/${'62977622bd9fed698c8734d3'}`,
-        method: 'get',
-        headers: { 'Content-Type': 'application/json' },
-      },
-      (data) => {
-        console.log(data)
-      }
-    )
-  }, [])
   return (
     <div>
       <section className="h-screen">
