@@ -1,8 +1,42 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 import Feed from '../components/Feed'
+import axios from 'axios'
 
-export default function register() {
+const initialState = {
+  name: '',
+  email: '',
+  password: '',
+}
+
+export default function Register() {
+  const [user, setUser] = useState(initialState)
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setUser({
+      ...user, //Spread Operator
+      [name]: value,
+    })
+  }
+
+  const addUserToLocalStorage = ({ user, token, location }) => {
+    localStorage.setItem('user', JSON.stringify(user))
+    // localStorage.setItem("token", token);
+  }
+
+  //Register User
+  const register = () => {
+    const { name, email, password } = user
+    if (name && email && password) {
+      axios
+        .post('http://localhost:5000/signup', user)
+        .then((res) => console.log(res))
+    } else {
+      alert('Invalid Input')
+    }
+  }
+
   return (
     <div className="flex min-h-screen flex-col items-center ">
       <section className="h-screen">
@@ -23,32 +57,39 @@ export default function register() {
 
                 <div className="mb-6">
                   <input
+                    value={user.name}
+                    onChange={handleChange}
                     type="text"
                     className="form-control m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-4 py-2 text-xl font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none"
-                    id="name"
+                    name="name"
                     placeholder="Name"
                   />
                 </div>
                 <div className="mb-6">
                   <input
+                    value={user.email}
+                    onChange={handleChange}
                     type="text"
                     className="form-control m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-4 py-2 text-xl font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none"
-                    id="email"
+                    name="email"
                     placeholder="Email address"
                   />
                 </div>
 
                 <div className="mb-6">
                   <input
+                    value={user.password}
+                    onChange={handleChange}
                     type="password"
                     className="form-control m-0 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-4 py-2 text-xl font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none"
-                    id="password"
+                    name="password"
                     placeholder="Password"
                   />
                 </div>
 
                 <div className="align-center  justify-center  text-center ">
                   <button
+                    onClick={register}
                     type="button"
                     className="w-40 rounded bg-blue-600 px-7 py-3 text-sm font-medium uppercase leading-snug text-white shadow-md transition duration-150 ease-in-out hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg"
                   >
