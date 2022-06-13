@@ -5,6 +5,7 @@ import digitalResponsesReducer from './digitalResponsesReducer'
 import maturityLevelsReducer from './maturityLevelsReducer'
 import strategicObjectives from './strategicObjectivesReducer'
 import digitalAxes from './digitalAxesReducer'
+import culturalResponses from './culturalResponsesReducer'
 
 export default combineReducers({
   questions: questionReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
   digitalResponses: digitalResponsesReducer,
   maturityLevels: maturityLevelsReducer,
   strategicObjectives: strategicObjectives,
-  digitalAxes:digitalAxes,
+  digitalAxes: digitalAxes,
+  culturalResponses: culturalResponses,
 })

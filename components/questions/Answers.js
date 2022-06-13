@@ -27,7 +27,7 @@ export default function Answers({ question, selectedAnswer, counter }) {
           <Answer
             isChecked={checkHandler}
             isUnchecked={uncheckHandler}
-            key={response.name}
+            key={response.name+""+counter}
             text={response.name}
           />
         ))}

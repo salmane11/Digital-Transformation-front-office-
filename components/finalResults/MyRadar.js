@@ -53,7 +53,7 @@ function MyRadar({ data }) {
       <Radar
         name={
           maturityAverageLevel < 4.01
-            ? 'later : ' + (+maturityAverageLevel.toFixed(2)+1)
+            ? 'later : ' + (+maturityAverageLevel+1).toFixed(2)
             : 'later : ' + maturityAverageLevel.toFixed(2)
         }
         dataKey="B"

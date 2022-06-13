@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react'
 
 export const digitalHost = 'http://localhost:5000/api/digital-audit'
 export const strategicHost = 'http://localhost:5000/api/audit-strategique'
+export const culturalHost='http://localhost:5000/api/cultural-audit'
 
 
 const useHttp = () => {

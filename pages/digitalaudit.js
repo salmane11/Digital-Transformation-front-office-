@@ -9,8 +9,7 @@ import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 import { addDigitalResponse } from '../store/actions/digitalResponsesAction'
 import { addMaturityLevels } from '../store/actions/maturityLevelsAction'
-import {addDigitalAxes} from '../store/actions/digitalAxesAction'
-
+import { addDigitalAxes } from '../store/actions/digitalAxesAction'
 
 function digitalaudit() {
   const [digitalChoices, setDigitalChoices] = useState([])
@@ -45,7 +44,7 @@ function digitalaudit() {
 
   useEffect(() => {
     if (digitalAxes && digitalLevels) {
-      for (let key = 0; key < digitalAxes.length - 2; key++) {
+      for (let key = 0; key < digitalAxes.length; key++) {
         // console.log("axe : "+digitalAxes[key]._id)
         for (let keey in digitalLevels) {
           // console.log(digitalLevels[keey]._id)
@@ -106,6 +105,11 @@ function digitalaudit() {
    * and dispatch the responses to redux for the history registration.
    **/
   const counterHandler = () => {
+    setAnswersCounter((state) => [...state, selectedAnswers.length])
+    console.log('these are the answers checked on every level ', [
+      ...answersCounter,
+      selectedAnswers.length,
+    ])
     if (selectedAnswers && digitalChoices[questionsCounter]) {
       dispatch(
         addDigitalResponse({
@@ -117,11 +121,14 @@ function digitalaudit() {
     }
     let levels = []
 
-    if (levelsCounter === digitalLevels.length-1) {
+    if (levelsCounter === digitalLevels.length - 1) {
+      let answeersCounter = [...answersCounter, selectedAnswers.length]
       //after each click on the next button we insert in the list levels the ids of levels of checked choices
       for (let i = 0; i < digitalLevels.length; i++) {
-        for (let j = 0; j < answersCounter[i]; j++) {
+        console.log(answeersCounter)
+        for (let j = 0; j < answeersCounter[i]; j++) {
           levels.push(digitalLevels[i]._id)
+          console.log('level_id' + digitalLevels[i]._id)
         }
       }
       setAxisLevel((state) => [
@@ -132,12 +139,12 @@ function digitalaudit() {
         },
       ])
       setAxesCounter(axesCounter + 1)
-      setQuestionsCounter(questionsCounter+1)
+      setQuestionsCounter(questionsCounter + 1)
       setLevelsCounter(0)
       setAnswersCounter([])
       return
     }
-    if (axesCounter === digitalAxes.length - 2) {
+    if (axesCounter === digitalAxes.length) {
       console.log(axisLevel)
 
       sendRequest(
@@ -149,30 +156,24 @@ function digitalaudit() {
         },
         (data) => {
           console.log(data)
-          dispatch(
-            addMaturityLevels(data)
-          )
-          console.log("dispatched")
+          dispatch(addMaturityLevels(data))
+          console.log('dispatched')
         }
       )
 
       //the digital audit is finished redirect to result
       router.push('/initiatives')
     }
-    setAnswersCounter((state) => [...state, selectedAnswers.length])
+    // setAnswersCounter((state) => [...state, selectedAnswers.length])
     setLevelsCounter((state) => state + 1)
     setQuestionsCounter(questionsCounter + 1)
-    // console.log('these are the answers checked on every level ', [
-    //   ...answersCounter,
-    //   selectedAnswers.length,
-    // ])
   }
 
   return (
     <div className="g-6 flex h-full flex-col items-center justify-center">
       <Header audit="Audit Digital" />
       <div className="align-center flex w-full justify-center ">
-        <div className="m-2 p-2 flex-[0.55]">
+        <div className="m-2 flex-[0.55] p-2">
           <Axes axes={digitalAxes} axisCounter={axesCounter} />
           <QuestNumeration
             className="w-full"

@@ -6,115 +6,72 @@ import { useRouter } from 'next/router'
 import Button from '../components/Button'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getQuestions } from '../store/actions/questionAction'
-import { addStrategicObjectives } from '../store/actions/strategicObjectivesAction'
-import { addResponse } from '../store/actions/responseAction'
+import { addCulturalResponse } from '../store/actions/culturalResponsesAction'
 import useHttp from '../store/requests.js'
-import { strategicHost } from '../store/requests.js'
+import { culturalHost } from '../store/requests.js'
 
 const feed = () => {
-  const culturalQueestions=[
-    {
-      question: 'question 1',
-      responses: [
-        {
-          name: 'response 1',
-          score: 21,
-        },
-        {
-          name: 'response 2',
-          score: 18,
-        },
-        {
-          name: 'response 3',
-          score: 25,
-        },
-      ],
-      objective: 'objectif 1',
-      percentage: 0.75,
-    },
-    {
-      question: 'question 2',
-      responses: [
-        {
-          name: 'response 1',
-          score: 21,
-        },
-        {
-          name: 'response 2',
-          score: 18,
-        },
-        {
-          name: 'response 3',
-          score: 25,
-        },
-      ],
-      objective: 'objectif 1',
-      percentage: 0.75,
-    },
-    {
-      question: 'question 3',
-      responses: [
-        {
-          name: 'response 1',
-          score: 21,
-        },
-        {
-          name: 'response 2',
-          score: 18,
-        },
-        {
-          name: 'response 3',
-          score: 25,
-        },
-      ],
-      objective: 'objectif 1',
-      percentage: 0.75,
-    },
-    {
-      question: 'question 4',
-      responses: [
-        {
-          name: 'response 1',
-          score: 21,
-        },
-        {
-          name: 'response 2',
-          score: 18,
-        },
-        {
-          name: 'response 3',
-          score: 25,
-        },
-      ],
-      objective: 'objectif 1',
-      percentage: 0.75,
-    },
-  ]
   const [culturalQuestions, setCulturalQuestions] = useState([])
   const [selectedResponse, setSelectedResponse] = useState('')
   const [counter, setCounter] = useState(0)
 
-//   const dispatch = useDispatch()
+  const transformCulturalQuestions=(questions)=>{
+    let loadedQuestions=[]
+    let responses=[]
+    for(let key in questions){
+      for (let keey in questions[key].responsesAndniveau){
+        responses.push({
+          name: questions[key].responsesAndniveau[keey].response,
+          score: questions[key].responsesAndniveau[keey].niveau,
+        })
+      }
+      loadedQuestions.push({
+        question: questions[key].question,
+      responses: responses,
+      objective: questions[key].axe,
+      })
+      responses=[]
+    }
+    setCulturalQuestions(loadedQuestions)
+  }
+
+  const { isLoading, error, sendRequest: getCulturalQuestions } = useHttp()
+  useEffect(() => {
+    getCulturalQuestions(
+      {
+        url: culturalHost + '/get-cultural-questions',
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+      (data) => {
+        console.log(data)
+        transformCulturalQuestions(data)
+      }
+    )
+
+  }, [])
+
+  const dispatch = useDispatch()
   const router = useRouter()
   const counterHandler = () => {
-    // if (counter === culturalQuestions.length - 1) {
-    //   router.push('/objectivesresults')
-    // }
+    if (counter === culturalQuestions.length - 1) {
+      router.push('/culturalresults')
+    }
     if (selectedResponse) {
-    //   dispatch(
-    //     addResponse({
-    //       question: strategicQuestions[counter].question,
-    //       response: {
-    //         name: selectedResponse,
-    //         score: strategicQuestions[counter].responses.filter(
-    //           (response) => response.name === selectedResponse
-    //         )[0].score,
-    //       },
-    //       objective: strategicQuestions[counter].objective,
-    //       percentage: strategicQuestions[counter].percentage,
-    //     })
-    //   )
+      dispatch(
+        addCulturalResponse({
+          question: culturalQuestions[counter].question,
+          response: {
+            name: selectedResponse,
+            score: culturalQuestions[counter].responses.filter(
+              (response) => response.name === selectedResponse
+            )[0].score,
+          },
+          axe: culturalQuestions[counter].objective,
+        })
+      )
       setCounter(counter + 1)
     }
   }
@@ -126,15 +83,15 @@ const feed = () => {
 
   return (
     <div className="g-6 flex h-full flex-col items-center justify-center">
-      <Header audit="Audit Stratégique" />
+      <Header audit="Audit Culturel" />
       <div className="mt-6 flex  justify-between ">
         <div className="flex-[0.3] ">
-          <QuestNumeration counter={counter} size={culturalQueestions.length} />
+          <QuestNumeration counter={counter} size={culturalQuestions.length} />
         </div>
         <div className="flex-[0.64]">
           <Answers
             selectedAnswer={answerHandler}
-            question={culturalQueestions[counter]}
+            question={culturalQuestions[counter]}
             counter={counter}
           />
         </div>
